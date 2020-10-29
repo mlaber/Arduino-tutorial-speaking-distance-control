@@ -13,6 +13,7 @@ int echoPin = 18;        // utrasonic-senor echo pin
 // Define variables:
 long duration;
 int distance;
+UltraSonicDistanceSensor distanceSensor(triggerPin, echoPin);
 
 void setup() {
   // Define inputs and outputs:
@@ -21,8 +22,6 @@ void setup() {
 
   //Begin Serial communication at a baudrate of 115200:
   Serial.begin(115200);
-
-  UltraSonicDistanceSensor distanceSensor(triggerPin, echoPin);
 }
 
 void loop() {
