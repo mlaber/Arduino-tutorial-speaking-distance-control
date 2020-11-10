@@ -5,7 +5,7 @@ This repo is part of an Arduino tutorial an should help the audience to get fami
 The speaking distance control measures the distance to an object displays it on the LCD and uses speech samples to give audio feedback like the [Ground proximity warning systemes](https://en.wikipedia.org/wiki/Ground_proximity_warning_system) in aircrafts.
 
 ## Part list
-* ESP32 NideMCU Microcontroller
+* ESP32 NodeMCU Microcontroller
 * 128x160 Pixel TFT Display (ST7735 controller IC)
 * 4 Ohm, 3 Watt mini speaker
 * HC-SR04 ultrasonic distance sensor
