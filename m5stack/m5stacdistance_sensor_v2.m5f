@@ -1,0 +1,43 @@
+from m5stack import *
+from m5ui import *
+from uiflow import *
+import wifiCfg
+import urequests
+import unit
+
+setScreenColor(0x222222)
+tof0 = unit.get(unit.TOF, unit.PORTA)
+
+
+Audio_Data = None
+
+
+label0 = M5TextBox(19, 67, "Distance:", lcd.FONT_DejaVu24, 0xFFFFFF, rotate=0)
+Distance = M5TextBox(152, 67, "Text", lcd.FONT_DejaVu24, 0xFFFFFF, rotate=0)
+circle0 = M5Circle(76, 139, 20, 0xFFFFFF, 0xFFFFFF)
+label1 = M5TextBox(26, 11, "Wifi Status:", lcd.FONT_Default, 0xFFFFFF, rotate=0)
+WiFiState = M5TextBox(129, 12, "Text", lcd.FONT_Default, 0xFFFFFF, rotate=0)
+Data_Returned = M5TextBox(243, 131, "Text", lcd.FONT_Default, 0xFFFFFF, rotate=0)
+label2 = M5TextBox(135, 131, "Lenght of Data", lcd.FONT_Default, 0xFFFFFF, rotate=0)
+HTTP_Return = M5TextBox(231, 177, "Text", lcd.FONT_Default, 0xFFFFFF, rotate=0)
+label3 = M5TextBox(94, 177, "HTTP ReturnCode:", lcd.FONT_Default, 0xFFFFFF, rotate=0)
+
+
+
+def buttonA_wasPressed():
+  global Audio_Data
+  Distance.setText(str(tof0.distance))
+  try:
+    req = urequests.request(method='GET', url='http://translate.google.com/translate_tts?ie=UTF-8&total=1&idx=0&textlen=32&client=tw-ob&q=hello&h&tl=En-gb   http://translate.google.com/translate_tts?ie=UTF-8&total=1&idx=0&textlen=32&client=tw-ob&q=hello&h&tl=En-gbtranslate.google.com', headers='User-Agent: Mozilla')
+    Data_Returned.setText(str(len(Audio_Data)))
+  except:
+    circle0.setBgColor(0xff0000)
+  HTTP_Return.setText(str(req.status_code))
+  pass
+btnA.wasPressed(buttonA_wasPressed)
+
+
+wifiCfg.doConnect('Markus iPhone', 'SECRET')
+while True:
+  WiFiState.setText(str(wifiCfg.wlan_sta.isconnected()))
+  wait_ms(2)
